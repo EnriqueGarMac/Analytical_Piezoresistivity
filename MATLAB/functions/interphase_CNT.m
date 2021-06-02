@@ -1,6 +1,5 @@
 function [Sigma_int_EH,t_EH,Sigma_int_CN,t_CN]=interphase_CNT(CNT_prop,f,fc,dco,Lambdao)
 
-
 format long
 
 d_CNT=CNT_prop(1);

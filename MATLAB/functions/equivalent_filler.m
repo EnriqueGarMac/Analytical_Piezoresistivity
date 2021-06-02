@@ -1,6 +1,5 @@
 function [sigmaT_EH,sigmaL_EH,sigmaT_CN,sigmaL_CN]=equivalent_filler(sigmaT_CNT,sigmaL_CNT,Sigma_int,L,t,d_CNT)
 
-
 % Radio of the CNT
 rc=d_CNT/2;
 
