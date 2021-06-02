@@ -5,6 +5,7 @@ format long
 % CNT
 % ================================
 d=CNT_prop(1);
+%L=CNT_prop(2)*updated_length(strain,poism);
 L=CNT_prop(2);
 rc=d/2;
 
