@@ -1,11 +1,11 @@
-function sigma_EFF=Eff_conductividy(dco,Lambdao,L_CNT,d_CNTo,sigma_iter,sigma_M,densm,densp,vio)
+function sigma_EFF=Eff_conductividy(dco,Lambdao,L_CNT,d_CNT,sigma_iter,sigma_M,densm,densp,vio)
 
 % Properties of CNTs
 % ==================
 % Length
 L_CNT=L_CNT*10^(-6);
 % Diameter
-d_CNT=d_CNTo*10^(-9);
+d_CNT=d_CNT*10^(-9);
 % Conductivity of CNTs (L=longitudinal, T=transversal)
 sigmaL_CNT=10^sigma_iter;
 sigmaT_CNT=10^sigma_iter;
