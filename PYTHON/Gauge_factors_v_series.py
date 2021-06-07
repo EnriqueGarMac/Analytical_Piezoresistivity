@@ -24,7 +24,7 @@ Diameterp = 10.146756608931748;              # Diameter [nm]
 dco = 1.870116073238336;     # Interparticle distance [nm]
 Lambdao = 0.500004882406769; # Height of the potential barrier [eV]
 # Weight fractions to be analysed
-viserie = np.linspace(0.001,5,10,endpoint=True);
+viserie = np.linspace(0.001,5,100,endpoint=True);
 # Electrical conductivities of CNTs to be analysed
 sigmaserie = np.arange(2,7+1,1);
 
@@ -51,50 +51,39 @@ for j in np.arange(0,len(sigmaserie),1):
 
 # REPRESENTATION
 
-fig = plt.figure(1,figsize=(18,8))
-colors = np.array([[1,0,0;0,1,0],[0,0,0;0,0,1],[0.2,0.2,0.2],[0.6,0.2,0.4]])
-subplot(2,2,1)
-hold on
+fig = plt.figure(1,figsize=(18,9))
+colors = np.array([[1,0,0],[0,1,0],[0,0,0],[0,0,1],[0.2,0.2,0.2],[0.6,0.2,0.4]])
+plt.subplot(2,2,1)
 for j in np.arange(0,len(sigmaserie),1):
-   plt.plot(viserie,L11_tract[:,j],'-',Linewidth=2,'Color',colors(j,:))
+   plt.plot(viserie,L11_tract[:,j],'-',Linewidth=2,color=colors[j,:], label=r'$\sigma=10^'+str(sigmaserie[j])+'$')
+plt.legend(fontsize=18)
+plt.ylabel(r'Traction: $\lambda_{11}$', fontsize=15)
+plt.xlabel(r'CNT volume fraction, $f_{CNT} [\%]$', fontsize=20)
 
-legend(ley,'interpreter','latex','FontSize',20)
-ylabel('Traction: $\lambda_{11}$','interpreter','latex','FontSize',20)
-xlabel('CNT volume fraction, $f_{CNT} [\%]$','interpreter','latex','FontSize',20)
-box on
 
-subplot(2,2,2)
-hold on
-for j = 1:numel(sigmaserie)
-   plot(viserie,L12_tract(:,j),'-','LineWidth',2,'Color',colors(j,:))
-end
-hold off
-legend(ley,'interpreter','latex','FontSize',20)
-ylabel('Traction: $\lambda_{12}$','interpreter','latex','FontSize',20)
-xlabel('CNT volume fraction, $f_{CNT} [\%]$','interpreter','latex','FontSize',20)
-box on
+plt.subplot(2,2,2)
+for j in np.arange(0,len(sigmaserie),1):
+   plt.plot(viserie,L12_tract[:,j],'-',Linewidth=2,color=colors[j,:], label=r'$\sigma=10^'+str(sigmaserie[j])+'$')
+plt.ylabel(r'Traction: $\lambda_{12}$', fontsize=15)
+plt.xlabel(r'CNT volume fraction, $f_{CNT} [\%]$', fontsize=20)
 
-subplot(2,2,3)
-hold on
-for j = 1:numel(sigmaserie)
-   plot(viserie,L11_tract(:,j),'-','LineWidth',2,'Color',colors(j,:))
-end
-hold off
-legend(ley,'interpreter','latex','FontSize',20)
-ylabel('Compression: $\lambda_{11}$','interpreter','latex','FontSize',20)
-xlabel('CNT volume fraction, $f_{CNT} [\%]$','interpreter','latex','FontSize',20)
-box on
 
-subplot(2,2,4)
-hold on
-for j = 1:numel(sigmaserie)
-   plot(viserie,L12_comp(:,j),'-','LineWidth',2,'Color',colors(j,:))
-end
-hold off
-legend(ley,'interpreter','latex','FontSize',20)
-ylabel('Compression: $\lambda_{12}$','interpreter','latex','FontSize',20)
-xlabel('CNT volume fraction, $f_{CNT} [\%]$','interpreter','latex','FontSize',20)
-box on
+
+plt.subplot(2,2,3)
+for j in np.arange(0,len(sigmaserie),1):
+   plt.plot(viserie,L11_comp[:,j],'-',Linewidth=2,color=colors[j,:], label=r'$\sigma=10^'+str(sigmaserie[j])+'$')
+plt.ylabel(r'Compression: $\lambda_{11}$', fontsize=15)
+plt.xlabel(r'CNT volume fraction, $f_{CNT} [\%]$', fontsize=20)
+
+
+plt.subplot(2,2,4)
+for j in np.arange(0,len(sigmaserie),1):
+   plt.plot(viserie,L12_comp[:,j],'-',Linewidth=2,color=colors[j,:], label=r'$\sigma=10^'+str(sigmaserie[j])+'$')
+plt.ylabel(r'Compression: $\lambda_{12}$', fontsize=15)
+plt.xlabel(r'CNT volume fraction, $f_{CNT} [\%]$', fontsize=20)
+plt.tight_layout()
+plt.show()
+
 
 
 
