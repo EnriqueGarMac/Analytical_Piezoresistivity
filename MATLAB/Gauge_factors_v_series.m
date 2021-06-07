@@ -77,7 +77,7 @@ box on
 subplot(2,2,3)
 hold on
 for j = 1:numel(sigmaserie)
-   plot(viserie,L11_tract(:,j),'-','LineWidth',2,'Color',colors(j,:))
+   plot(viserie,L11_comp(:,j),'-','LineWidth',2,'Color',colors(j,:))
 end
 hold off
 legend(ley,'interpreter','latex','FontSize',20)
