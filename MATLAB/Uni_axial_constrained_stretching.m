@@ -60,17 +60,15 @@ axis square
 
 figure('WindowState','maximized','Color',[1 1 1])
 subplot(1,2,1)
-plot(strain_vector,fc,'-b','LineWidth',2)
-ylabel('$\frac{\sigma_o}{\sigma_{nn}}-1$ [\%]','interpreter','latex','FontSize',20)
+plot(strain_vector,fc*100,'-b','LineWidth',2)
+ylabel('Percolation threshold, $fc$ [\%]','interpreter','latex','FontSize',20)
 xlabel('Strain, $\varepsilon$','interpreter','latex','FontSize',20)
-title(['\textbf{Compression}: $\lambda_{11} = $',num2str(L11_tract),'; $\lambda_{44} = $',num2str(L44_tract),';  \textbf{Traction}: $\lambda_{11} = $',num2str(L11_comp),'; $\lambda_{44} = $',num2str(L44_comp)],'interpreter','latex','FontSize',15)
 box on
 axis square
 subplot(1,2,2)
-plot(strain_vector,Xi,'-b','LineWidth',2)
-ylabel('$\frac{\sigma_o}{\sigma_{tt}}-1$ [\%]','interpreter','latex','FontSize',20)
+plot(strain_vector,Xi*100,'-b','LineWidth',2)
+ylabel('Fraction of percolated CNTs, $\xi$ [\%]','interpreter','latex','FontSize',20)
 xlabel('Strain, $\varepsilon$','interpreter','latex','FontSize',20)
-title(['\textbf{Compression}: $\lambda_{11} = $',num2str(L12_tract),'; $\lambda_{44} = $',num2str(L44_tract),';  \textbf{Traction}: $\lambda_{11} = $',num2str(L12_comp),'; $\lambda_{44} = $',num2str(L44_comp)],'interpreter','latex','FontSize',15)
 box on
 axis square
 
