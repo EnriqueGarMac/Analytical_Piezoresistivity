@@ -21,7 +21,7 @@ Diameterp = 10.146756608931748;              % Diameter [nm]
 dco = 1.870116073238336;     % Interparticle distance [nm]
 Lambdao = 0.500004882406769; % Height of the potential barrier [eV]
 sigma=10^7;                  % Electrical conductivity [S/m]
-% Volume fraction
+% Weight fraction
 vi = 1;       % [%]
 
 
@@ -54,7 +54,7 @@ plot(strain_vector(strain_vector<=0),100*strain_vector(strain_vector<=0)*L12_com
 hold off
 ylabel('$\frac{\sigma_o}{\sigma_{tt}}-1$ [\%]','interpreter','latex','FontSize',20)
 xlabel('Strain, $\varepsilon$','interpreter','latex','FontSize',20)
-title(['\textbf{Compression}: $\lambda_{11} = $',num2str(L12_tract),'; $\lambda_{44} = $',num2str(L44_tract),';  \textbf{Traction}: $\lambda_{11} = $',num2str(L12_comp),'; $\lambda_{44} = $',num2str(L44_comp)],'interpreter','latex','FontSize',15)
+title(['\textbf{Compression}: $\lambda_{12} = $',num2str(L12_tract),'; $\lambda_{44} = $',num2str(L44_tract),';  \textbf{Traction}: $\lambda_{12} = $',num2str(L12_comp),'; $\lambda_{44} = $',num2str(L44_comp)],'interpreter','latex','FontSize',15)
 box on
 axis square
 
@@ -67,7 +67,7 @@ box on
 axis square
 subplot(1,2,2)
 plot(strain_vector,Xi*100,'-b','LineWidth',2)
-ylabel('Fraction of percolated CNTs, $\xi$ [\%]','interpreter','latex','FontSize',20)
+ylabel('Fraction of percolated CNTs, $\chi$ [\%]','interpreter','latex','FontSize',20)
 xlabel('Strain, $\varepsilon$','interpreter','latex','FontSize',20)
 box on
 axis square
@@ -79,5 +79,4 @@ disp('Compression:')
 disp([L11_comp,L12_comp,L12_comp,0,0,0;L12_comp,L11_comp,L12_comp,0,0,0;L12_comp,L12_comp,L11_comp,0,0,0;0,0,0,L44_comp,0,0;0,0,0,0,L44_comp,0;0,0,0,0,0,L44_comp])
 disp(' ')
 disp('Traction:')
-disp('Piezoresistivity matrix:')
 disp([L11_tract,L12_tract,L12_tract,0,0,0;L12_tract,L11_tract,L12_tract,0,0,0;L12_tract,L12_tract,L11_tract,0,0,0;0,0,0,L44_tract,0,0;0,0,0,0,L44_tract,0;0,0,0,0,0,L44_tract])

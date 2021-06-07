@@ -20,7 +20,7 @@ Diameterp = 10.146756608931748;              % Diameter [nm]
 % Electrical properties
 dco = 1.870116073238336;     % Interparticle distance [nm]
 Lambdao = 0.500004882406769; % Height of the potential barrier [eV]
-% Volume fractions to be analysed
+% Weight fractions to be analysed
 viserie = linspace(0.001,5,100);
 % Electrical conductivities of CNTs to be analysed
 sigmaserie = 2:1:7;
