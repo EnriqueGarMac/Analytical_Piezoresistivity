@@ -74,7 +74,7 @@ axis square
 
 
 disp('Piezoresistivity matrix:')
-disp('**************************')
+disp('***************************')
 disp('Compression:')
 disp([L11_comp,L12_comp,L12_comp,0,0,0;L12_comp,L11_comp,L12_comp,0,0,0;L12_comp,L12_comp,L11_comp,0,0,0;0,0,0,L44_comp,0,0;0,0,0,0,L44_comp,0;0,0,0,0,0,L44_comp])
 disp(' ')

@@ -51,7 +51,7 @@ end
 %% REPRESENTATION
 
 figure('WindowState','maximized','Color',[1 1 1])
-colors = [1,0,0;0,1,0;0,0,0;0,0,1;0.2,0.2,0.2;0.6,0.2,0.3];
+colors = [1,0,0;0,1,0;0,0,0;0,0,1;0.2,0.2,0.2;0.6,0.2,0.4];
 subplot(2,2,1)
 hold on
 for j = 1:numel(sigmaserie)
