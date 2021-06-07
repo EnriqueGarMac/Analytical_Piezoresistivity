@@ -24,7 +24,7 @@ Diameterp = 10.146756608931748;              # Diameter [nm]
 dco = 1.870116073238336;     # Interparticle distance [nm]
 Lambdao = 0.500004882406769; # Height of the potential barrier [eV]
 sigma=10**7;                  # Electrical conductivity [S/m]
-# Volume fraction
+# Weight fraction
 vi = 1;       # [%]
 
 # STRAIN SENSING CURVES
