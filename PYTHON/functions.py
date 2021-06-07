@@ -12,31 +12,31 @@ def Eff_conductividy(dco,Lambdao,L_CNT,d_CNTo,sigma_iter,sigma_M,densm,densp,vio
     # Properties of CNTs
     # ==================
     # Length
-    L_CNT=L_CNT*10**(-6);
+    L_CNT = L_CNT*10**(-6);
     # Diameter
-    d_CNT=d_CNTo*10**(-9);
+    d_CNT = d_CNTo*10**(-9);
     # Conductivity of CNTs (L=longitudinal, T=transversal)
-    sigmaL_CNT=10**sigma_iter;
-    sigmaT_CNT=10**sigma_iter;
-    CNT_prop=[d_CNT,L_CNT];
+    sigmaL_CNT = 10**sigma_iter;
+    sigmaT_CNT = 10**sigma_iter;
+    CNT_prop = [d_CNT,L_CNT];
     
     # MICROMECHANICS MODELLING
     # ==========================
     # PERCOLATION THRESHOLD
-    s=L_CNT/d_CNT;
+    s = L_CNT/d_CNT;
     I = 1/(1.0187);
     fc = np.pi/(5.77*s*I);
     # Volume fraction
-    vi=densm/(densm+(100./vio-1)*densp);  # Transformation to volume fraction
+    vi = densm/(densm+(100./vio-1)*densp);  # Transformation to volume fraction
     # 1. INTERPHASE
-    [Sigma_int_EH,t_EH,Sigma_int_CN,t_CN]=interphase_CNT(CNT_prop,vi,fc,dco,Lambdao);
-    Sigma_int=np.array([Sigma_int_EH,Sigma_int_CN]);
-    t=np.array([t_EH,t_CN]);
+    [Sigma_int_EH,t_EH,Sigma_int_CN,t_CN] = interphase_CNT(CNT_prop,vi,fc,dco,Lambdao);
+    Sigma_int = np.array([Sigma_int_EH,Sigma_int_CN]);
+    t = np.array([t_EH,t_CN]);
     # 2. EQUIVALENT CYLINDER
-    [sigmaT_EH,sigmaL_EH,sigmaT_CN,sigmaL_CN]=equivalent_filler(sigmaT_CNT,sigmaL_CNT,Sigma_int,L_CNT,t,d_CNT);
-    equi_filler=[sigmaT_EH,sigmaL_EH,sigmaT_CN,sigmaL_CN];
+    [sigmaT_EH,sigmaL_EH,sigmaT_CN,sigmaL_CN] = equivalent_filler(sigmaT_CNT,sigmaL_CNT,Sigma_int,L_CNT,t,d_CNT);
+    equi_filler = np.array([sigmaT_EH,sigmaL_EH,sigmaT_CN,sigmaL_CN])
     # 3. MICROMECHANICS PIEZOELECTRIC CNT
-    [sigma_EFF,Xi]=micro_piezoCNT_cf(equi_filler,vi,CNT_prop,sigma_M,fc,t,[0,0,0]);
+    [sigma_EFF,Xi] = micro_piezoCNT_cf(equi_filler,vi,CNT_prop,sigma_M,fc,t,np.array([0,0,0]));
     return sigma_EFF
 
 
@@ -63,7 +63,7 @@ def interphase_CNT(CNT_prop,f,fc,dco,Lambdao):
     # Initial calculations
     # ==================
     # Aspect ratio
-    asp=L_CNT/d_CNT;
+    asp = L_CNT/d_CNT;
     # Contact area of CNTs
     a_EH=np.pi*(d_CNT/2)**2;
     a_CN=np.pi*(d_CNT/2)**2;    
@@ -93,8 +93,8 @@ def interphase_CNT(CNT_prop,f,fc,dco,Lambdao):
     
     
     if Xi>=0:
-        Sigma_int_EH=Sigma_int_CN;
-        t_EH=t_CN;
+        Sigma_int_EH = Sigma_int_CN;
+        t_EH = t_CN;
 
     
     
@@ -192,7 +192,7 @@ def micro_piezoCNT_cf(equi_filler,vi,CNT_prop,sigma_M,fc,t,strain):
     # ELECTRON HOPPING
     # ================================
     # Field concentration factor
-    delta=np.eye(3,3);
+    delta = np.eye(3,3);
     TEH = (delta+(SEH*np.linalg.inv(Sigma_M))*(Sigma_EH-Sigma_M));
     AdilEH = np.linalg.inv(TEH);
     AdilEHoa = np.real(Orientational_average_closed_form(AdilEH,strain));
@@ -248,9 +248,9 @@ def Orientational_average_closed_form(Sigma,strain):
 
     Sigma11 = Sigma[0,0];
     Sigma33 = Sigma[2,2];
-    Eps1 = strain[0]+1;
-    Eps2 = strain[1]+1;
-    Eps3 = strain[2]+1;
+    Eps1 = strain[0]+1.
+    Eps2 = strain[1]+1.
+    Eps3 = strain[2]+1.
     
     SigmaPromedio11=(1./15.)*(5.*(2.*Sigma11+Sigma33)+4.*5.**(1./2.)*np.pi**2.*(\
       Sigma11+(-1.)*Sigma33)*((1j*(1./8008.))*5.**(-1./2.)*\
@@ -307,3 +307,163 @@ def Orientational_average_closed_form(Sigma,strain):
     sigmaeff = np.array([[SigmaPromedio11,0.,0.],[0.,SigmaPromedio22,0.],[0.,0.,SigmaPromedio33]])
     
     return sigmaeff 
+
+
+def Piezoresistivity(dco,Lambdao,L_CNT,d_CNT,sigma_iter,sigma_M,densm,densp,vio,str_comp,str_tens):
+
+    
+    # Properties of CNTs
+    # ==================
+    # Length
+    L_CNT = L_CNT*10**(-6);
+    # Diameter
+    d_CNT = d_CNT*10**(-9);
+    # Conductivity of CNTs (L=longitudinal, T=transversal)
+    sigmaL_CNT = 10**sigma_iter;
+    sigmaT_CNT = 10**sigma_iter;
+    CNT_prop = [d_CNT,L_CNT];
+    # Volume fraction
+    vio = densm/(densm+(100./vio-1)*densp);  # Transformation to volume fraction
+    
+    # Range of deformations
+    strain_vector = np.array([np.linspace(float(str_comp),float(str_tens),699, endpoint=True)/100.]).T;
+    strain_vector = np.row_stack((np.array(0),strain_vector))
+    
+    # Initialize variables
+    Drho_12 = np.zeros((len(strain_vector),1));
+    Drho_11 = Drho_12;
+    Xi = np.zeros((1,len(strain_vector)));
+    fc = np.zeros((1,len(strain_vector)));
+    
+    for j in np.arange(0,len(strain_vector)):
+        
+        # Uni-axial stretching
+        # ====================
+        strain = np.array([0.,0.,float(strain_vector[j])]); # Constrained lateral displacement
+        strainvol = 1.+strain;
+        # Stretching induced volume expansion
+        vi = float(vio/(strainvol[0]*strainvol[1]*strainvol[2]))
+        
+        # PERCOLATION THRESHOLD
+        s = L_CNT/d_CNT;
+        I = 1./(1.0187+0.25457*strainvol[2]-0.25461*np.log(strainvol[2]));
+        fc[0,j] = np.pi/(5.77*s*I);
+        # 1. INTERPHASE
+        [Sigma_int_EH,t_EH,Sigma_int_CN,t_CN] = interphase_CNT(CNT_prop,vi,fc[0,j],dco,Lambdao);
+        Sigma_int = [Sigma_int_EH,Sigma_int_CN];
+        t = np.array([t_EH,t_CN])
+        # 2. EQUIVALENT CYLINDER
+        [sigmaT_EH,sigmaL_EH,sigmaT_CN,sigmaL_CN] = equivalent_filler(sigmaT_CNT,sigmaL_CNT,Sigma_int,L_CNT,t,d_CNT);
+        equi_filler = np.array([sigmaT_EH,sigmaL_EH,sigmaT_CN,sigmaL_CN])
+        # 3. MICROMECHANICS PIEZORESISTIVE CNT
+        [sigma_EFF,Xi[0,j]] = micro_piezoCNT_cf(equi_filler,vi,CNT_prop,sigma_M,fc[0,j],t,strain);
+        # Xi/Xi0
+        if j==0:
+            sigma_EFFo=sigma_EFF[1,1];
+        Drho_12[j] = (sigma_EFFo/sigma_EFF[0,0])-1;
+        Drho_11[j] = (sigma_EFFo/sigma_EFF[2,2])-1;
+        
+    
+    # Characterization of the strain-sensing curves
+    
+    # L11
+    # ---------------------------------------
+    sensitivity = Drho_11[1:].T;
+    strainserie = strain_vector[1:].T
+    # Compression
+    poscompress = np.argwhere(strainserie>=0)-1;
+    x = -np.flip(strainserie[0,1:poscompress[0,1]]);
+    y = -np.flip(sensitivity[0,1:poscompress[0,1]]);
+    L11_comp = gauge_reg(x,y);
+    # Traction
+    x = strainserie[0,poscompress[0,1]+1:];
+    y = sensitivity[0,poscompress[0,1]+1:];
+    L11_tract = gauge_reg(x,y);
+            
+    # L12
+    # ---------------------------------------
+    sensitivity = Drho_12[1:].T
+    strainserie = strain_vector[1:].T
+    # Compression
+    poscompress = np.argwhere(strainserie>=0)-1;
+    x = -np.flip(strainserie[0,0:poscompress[0,1]]);
+    y = -np.flip(sensitivity[0,0:poscompress[0,1]]);
+    L12_comp = gauge_reg(x,y);
+    # Traction
+    x = strainserie[0,poscompress[0,1]+1:-1];
+    y = sensitivity[0,poscompress[0,1]+1:-1];
+    L12_tract = gauge_reg(x,y);
+    
+    # L44
+    L44_tract = (L11_tract-L12_tract)/2;
+    L44_comp = (L11_comp-L12_comp)/2; 
+    
+    
+    # Output
+    Xi = np.delete(Xi,0)
+    fc = np.delete(fc,0)
+    Drho_12 = np.delete(Drho_12,0)
+    Drho_11 = np.delete(Drho_11,0)
+    strain_vector = np.delete(strain_vector,0)
+
+    return [strain_vector,Drho_11,Drho_12,L11_tract,L12_tract,L11_comp,L12_comp,L44_tract,L44_comp,fc,Xi]
+
+
+
+
+def gauge_reg(x,y):
+
+    if x[0]!=0:
+      xtot = np.pad(x, (1,0), 'constant')
+      ytot = np.pad(y, (1,0), 'constant')
+    else:
+      xtot = x;
+      ytot = y; 
+    
+    p = np.polyfit(xtot[0:2],ytot[0:2],1);
+    yfit = np.polyval(p,xtot[0:2]);
+    yresid = ytot[0:2]-yfit;
+    SSresid = sum(yresid**2);
+    SStotal = (len(ytot)-1.)*np.var(ytot);
+    rsq = 1-SSresid/SStotal;
+    
+    rsq_limit = 0.9999;
+    cont = 1;
+    while rsq>rsq_limit and float(cont+1)<=len(xtot):
+      cont=cont+1;
+        
+      x = xtot[0:cont]
+      y = ytot[0:cont]
+    
+      p = np.polyfit(x,y,1);
+      yfit = np.polyval(p,x);
+      yresid = y-yfit;
+      SSresid = sum(yresid**2);
+      SStotal = (len(y)-1)*np.var(y);
+      rsq = 1-SSresid/SStotal;
+
+    
+    p_ref = ytot[cont-1]/(xtot[cont-1]);
+    
+    
+    
+    cont_level = 0;
+    cont_level2 = 0;
+    length1 = xtot[-1];
+    length5 = xtot[-1];
+    for i in np.arange(cont,len(xtot)):
+    
+        if np.abs(1-ytot[i]/(xtot[i]*p_ref))>0.05 and cont_level==0:
+          length5 = xtot[i]
+          cont_level = 1;
+        if abs(1-ytot[i]/(xtot[i]*p_ref))>0.01 and cont_level2==0:
+          length1 = xtot[i]
+          cont_level2 = 1;
+    
+    
+    # Store variables
+    
+    gauge = p_ref;
+    linlength1 = length1;
+    linlength5 = length5;
+    return gauge
