@@ -20,7 +20,7 @@ Diameterp = 10.146756608931748;              % Diameter [nm]
 % Electrical properties
 dco = 1.870116073238336;     % Interparticle distance [nm]
 Lambdao = 0.500004882406769; % Height of the potential barrier [eV]
-% Weight fractions to be analysed
+% Mass fractions to be analysed
 viserie = linspace(0.001,5,100);
 % Electrical conductivities of CNTs to be analysed
 sigmaserie = 2:1:7;
@@ -52,50 +52,37 @@ end
 
 figure('WindowState','maximized','Color',[1 1 1])
 colors = [1,0,0;0,1,0;0,0,0;0,0,1;0.2,0.2,0.2;0.6,0.2,0.4];
-subplot(2,2,1)
+subplot(1,2,1)
 hold on
 for j = 1:numel(sigmaserie)
    plot(viserie,L11_tract(:,j),'-','LineWidth',2,'Color',colors(j,:))
 end
+for j = 1:numel(sigmaserie)
+   plot(viserie,L11_comp(:,j),'--','LineWidth',2,'Color',colors(j,:))
+end
 hold off
 legend(ley,'interpreter','latex','FontSize',20)
-ylabel('Traction: $\lambda_{11}$','interpreter','latex','FontSize',20)
-xlabel('CNT volume fraction, $f_{CNT} [\%]$','interpreter','latex','FontSize',20)
+ylabel('Piezoresistivity coefficient $\lambda_{11}$','interpreter','latex','FontSize',20)
+xlabel('CNT mass fraction, wt\%$','interpreter','latex','FontSize',20)
 box on
 
-subplot(2,2,2)
+subplot(1,2,2)
 hold on
 for j = 1:numel(sigmaserie)
    plot(viserie,L12_tract(:,j),'-','LineWidth',2,'Color',colors(j,:))
 end
-hold off
-legend(ley,'interpreter','latex','FontSize',20)
-ylabel('Traction: $\lambda_{12}$','interpreter','latex','FontSize',20)
-xlabel('CNT volume fraction, $f_{CNT} [\%]$','interpreter','latex','FontSize',20)
-box on
-
-subplot(2,2,3)
-hold on
 for j = 1:numel(sigmaserie)
-   plot(viserie,L11_comp(:,j),'-','LineWidth',2,'Color',colors(j,:))
+   plot(viserie,L12_comp(:,j),'--','LineWidth',2,'Color',colors(j,:))
 end
 hold off
 legend(ley,'interpreter','latex','FontSize',20)
-ylabel('Compression: $\lambda_{11}$','interpreter','latex','FontSize',20)
-xlabel('CNT volume fraction, $f_{CNT} [\%]$','interpreter','latex','FontSize',20)
+ylabel('Piezoresistivity coefficient $\lambda_{12}$','interpreter','latex','FontSize',20)
+xlabel('CNT mass fraction, wt\%$','interpreter','latex','FontSize',20)
 box on
 
-subplot(2,2,4)
-hold on
-for j = 1:numel(sigmaserie)
-   plot(viserie,L12_comp(:,j),'-','LineWidth',2,'Color',colors(j,:))
-end
-hold off
-legend(ley,'interpreter','latex','FontSize',20)
-ylabel('Compression: $\lambda_{12}$','interpreter','latex','FontSize',20)
-xlabel('CNT volume fraction, $f_{CNT} [\%]$','interpreter','latex','FontSize',20)
-box on
-
-
+data1 = [viserie',L11_tract];
+data2 = [viserie',L11_comp];
+data3 = [viserie',L12_tract];
+data4 = [viserie',L12_comp];
 
 

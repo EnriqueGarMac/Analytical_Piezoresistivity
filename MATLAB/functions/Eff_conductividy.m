@@ -15,7 +15,7 @@ CNT_prop=[d_CNT,L_CNT];
 % ==========================
 % PERCOLATION THRESHOLD
 s=L_CNT/d_CNT;
-I = 1/(1.0187);
+I = 1/1.27327;
 fc = pi/(5.77*s*I);
 % Volume fraction
 vi=densm./(densm+(100./vio-1)*densp);  % Transformation to volume fraction

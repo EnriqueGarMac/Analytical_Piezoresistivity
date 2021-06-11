@@ -21,7 +21,7 @@ Diameterp = 10.146756608931748;              % Diameter [nm]
 dco = 1.870116073238336;     % Interparticle distance [nm]
 Lambdao = 0.500004882406769; % Height of the potential barrier [eV]
 sigma=10^7;                  % Electrical conductivity [S/m]
-% Weight fraction
+% Mass fraction
 vi = 1;       % [%]
 
 
@@ -33,7 +33,6 @@ str_tens = 5;  % [%]
 [sigma_EFF_serie,strain_vector,Drho_11,Drho_12,L11_tract,L12_tract,L11_comp,L12_comp,L44_tract,L44_comp,fc,Xi] = Piezoresistivity(dco,Lambdao,Lengthp,Diameterp,log10(sigma),sigma_M,densm,densp,vi,str_comp,str_tens);
 
 %% REPRESENTATION
-
 figure('WindowState','maximized','Color',[1 1 1])
 subplot(1,2,1)
 hold on
@@ -80,3 +79,16 @@ disp([L11_comp,L12_comp,L12_comp,0,0,0;L12_comp,L11_comp,L12_comp,0,0,0;L12_comp
 disp(' ')
 disp('Traction:')
 disp([L11_tract,L12_tract,L12_tract,0,0,0;L12_tract,L11_tract,L12_tract,0,0,0;L12_tract,L12_tract,L11_tract,0,0,0;0,0,0,L44_tract,0,0;0,0,0,0,L44_tract,0;0,0,0,0,0,L44_tract])
+
+
+
+data1 = [strain_vector,100*Drho_11];
+data2 = [strain_vector(strain_vector>=0),100*strain_vector(strain_vector>=0)*L11_tract];
+data3 = [strain_vector(strain_vector<=0),100*strain_vector(strain_vector<=0)*L11_comp];
+
+data4 = [strain_vector,100*Drho_12];
+data5 = [strain_vector(strain_vector>=0),100*strain_vector(strain_vector>=0)*L12_tract];
+data6 = [strain_vector(strain_vector<=0),100*strain_vector(strain_vector<=0)*L12_comp];
+
+data7 = [strain_vector,fc'*100];
+data8 = [strain_vector,Xi'*100];

@@ -35,7 +35,7 @@ for j=1:length(strain_vector)
     
     %% PERCOLATION THRESHOLD
     s=L_CNT/d_CNT;
-    I = 1/(1.0187+0.25457*strainvol(3)-0.25461*log(strainvol(3)));
+    I = 1/(1.27327+0.25457*strain(3)-0.25461*log(strain(3)+1));
     fc(j) = pi/(5.77*s*I);
     %% 1. INTERPHASE
     [Sigma_int_EH,t_EH,Sigma_int_CN,t_CN]=interphase_CNT(CNT_prop,vi,fc(j),dco,Lambdao);
