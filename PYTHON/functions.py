@@ -24,7 +24,7 @@ def Eff_conductividy(dco,Lambdao,L_CNT,d_CNTo,sigma_iter,sigma_M,densm,densp,vio
     # ==========================
     # PERCOLATION THRESHOLD
     s = L_CNT/d_CNT;
-    I = 1/(1.0187);
+    I = 1.0/(1.27327);
     fc = np.pi/(5.77*s*I);
     # Volume fraction
     vi = densm/(densm+(100./vio-1)*densp);  # Transformation to volume fraction
@@ -346,7 +346,7 @@ def Piezoresistivity(dco,Lambdao,L_CNT,d_CNT,sigma_iter,sigma_M,densm,densp,vio,
         
         # PERCOLATION THRESHOLD
         s = L_CNT/d_CNT;
-        I = 1./(1.0187+0.25457*strainvol[2]-0.25461*np.log(strainvol[2]));
+        I = 1./(1.27327+0.25457*strainvol[2]-0.25461*np.log(strainvol[2]+1.));
         fc[0,j] = np.pi/(5.77*s*I);
         # 1. INTERPHASE
         [Sigma_int_EH,t_EH,Sigma_int_CN,t_CN] = interphase_CNT(CNT_prop,vi,fc[0,j],dco,Lambdao);

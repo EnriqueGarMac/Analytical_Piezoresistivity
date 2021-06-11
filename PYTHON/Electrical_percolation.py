@@ -23,22 +23,25 @@ Diameterp = 10.146756608931748;              # Diameter [nm]
 # Electrical properties
 dco = 1.870116073238336;     # Interparticle distance [nm]
 Lambdao = 0.500004882406769; # Height of the potential barrier [eV]
-sigma=10**7;                  # Electrical conductivity [S/m]
+# Electrical conductivities of CNTs to be analysed
+sigmaserie = 10**np.arange(2,7+1,1);
 
 # ELECTRICAL PROPERTIES
 npp = 200;  # Number of data points in the percolation curve
-vserie = np.linspace(0.001,5,npp)/100; # Weight fraction [%]
+vserie = np.linspace(0.001,5,npp)/100; # CNT mass fractions to be analysed [wt%]
 
-sigma_serie = np.zeros((npp,1));
-for i in np.arange(1,npp+1):
-   sigmaEFF = Eff_conductividy(dco,Lambdao,Lengthp,Diameterp,np.log10(sigma),sigma_M,densm,densp,100*vserie[i-1]);
-   sigma_serie[i-1] = sigmaEFF[0,0];
+sigma_serie = np.zeros((npp,len(sigmaserie)));
+for j in np.arange(0,len(sigmaserie),1):
+ for i in np.arange(1,npp+1):
+   sigmaEFF = Eff_conductividy(dco,Lambdao,Lengthp,Diameterp,np.log10(sigmaserie[j]),sigma_M,densm,densp,100*vserie[i-1]);
+   sigma_serie[i-1,j] = sigmaEFF[0,0];
 
 
 fig, ax = plt.subplots()
-plt.semilogy(vserie*100,sigma_serie,'-o')
-plt.ylim([10**(-11),10**4])
-plt.xlabel(r'wt [%]', fontsize=18)
+for j in np.arange(0,len(sigmaserie),1):
+   plt.semilogy(vserie*100,sigma_serie[:,j],'-o', label=r'$\sigma=10^'+str(int(np.log10(sigmaserie[j])))+'$')
+plt.legend(fontsize=18)
+plt.xlabel(r'CNT mass fraction wt [%]', fontsize=18)
 plt.ylabel(r'Effective electrical conductivity [S/m]', fontsize=18)
 # We change the fontsize of minor ticks label 
 ax.tick_params(axis='both', which='major', labelsize=14)
