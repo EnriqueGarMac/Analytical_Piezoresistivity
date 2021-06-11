@@ -23,7 +23,7 @@ Diameterp = 10.146756608931748;              # Diameter [nm]
 # Electrical properties
 dco = 1.870116073238336;     # Interparticle distance [nm]
 Lambdao = 0.500004882406769; # Height of the potential barrier [eV]
-# Weight fractions to be analysed
+# CNT Mass fractions to be analysed
 viserie = np.linspace(0.001,5,100,endpoint=True);
 # Electrical conductivities of CNTs to be analysed
 sigmaserie = np.arange(2,7+1,1);
@@ -58,14 +58,14 @@ for j in np.arange(0,len(sigmaserie),1):
    plt.plot(viserie,L11_tract[:,j],'-',Linewidth=2,color=colors[j,:], label=r'$\sigma=10^'+str(sigmaserie[j])+'$')
 plt.legend(fontsize=18)
 plt.ylabel(r'Traction: $\lambda_{11}$', fontsize=15)
-plt.xlabel(r'CNT volume fraction, $f_{CNT} [\%]$', fontsize=20)
+plt.xlabel(r'CNT mass fraction wt [%]$', fontsize=20)
 
 
 plt.subplot(2,2,2)
 for j in np.arange(0,len(sigmaserie),1):
    plt.plot(viserie,L12_tract[:,j],'-',Linewidth=2,color=colors[j,:], label=r'$\sigma=10^'+str(sigmaserie[j])+'$')
 plt.ylabel(r'Traction: $\lambda_{12}$', fontsize=15)
-plt.xlabel(r'CNT volume fraction, $f_{CNT} [\%]$', fontsize=20)
+plt.xlabel(r'CNT mass fraction wt [%]$', fontsize=20)
 
 
 
@@ -73,14 +73,14 @@ plt.subplot(2,2,3)
 for j in np.arange(0,len(sigmaserie),1):
    plt.plot(viserie,L11_comp[:,j],'-',Linewidth=2,color=colors[j,:], label=r'$\sigma=10^'+str(sigmaserie[j])+'$')
 plt.ylabel(r'Compression: $\lambda_{11}$', fontsize=15)
-plt.xlabel(r'CNT volume fraction, $f_{CNT} [\%]$', fontsize=20)
+plt.xlabel(r'CNT mass fraction wt [%]$', fontsize=20)
 
 
 plt.subplot(2,2,4)
 for j in np.arange(0,len(sigmaserie),1):
    plt.plot(viserie,L12_comp[:,j],'-',Linewidth=2,color=colors[j,:], label=r'$\sigma=10^'+str(sigmaserie[j])+'$')
 plt.ylabel(r'Compression: $\lambda_{12}$', fontsize=15)
-plt.xlabel(r'CNT volume fraction, $f_{CNT} [\%]$', fontsize=20)
+plt.xlabel(r'CNT mass fraction wt [%]$', fontsize=20)
 plt.tight_layout()
 plt.show()
 

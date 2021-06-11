@@ -25,7 +25,7 @@ sigmaserie = 2:1:7;
 
 %% ELECTRICAL PROPERTIES
 np = 200;  % Number of data points in the percolation curve
-vserie = linspace(0.001,5,np)/100; % Mass fractions [%]
+vserie = linspace(0.001,5,np)/100; % CNT mass fractions to be analysed [wt%]
 
 sigma_serie = zeros(np,numel(sigmaserie));
 for j = 1:numel(sigmaserie)
