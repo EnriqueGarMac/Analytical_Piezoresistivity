@@ -31,7 +31,7 @@ sigma_serie = zeros(np,numel(sigmaserie));
 for j = 1:numel(sigmaserie)
  ley(j) = {['$\sigma_c=10^',int2str(j),'$ [S/m]']};   
  for i = 1:numel(vserie)
-   sigmaEFF = Eff_conductividy(dco,Lambdao,Lengthp,Diameterp,log10(sigmaserie(j)),sigma_M,densm,densp,100*vserie(i));
+   sigmaEFF = Eff_conductividy(dco,Lambdao,Lengthp,Diameterp,sigmaserie(j),sigma_M,densm,densp,100*vserie(i));
    sigma_serie(i,j) = sigmaEFF(1,1);
  end
 end
